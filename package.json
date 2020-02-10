@@ -1,0 +1,28 @@
+{
+  "name": "github-cv",
+  "version": "1.0.0",
+  "description": "The tool that generates CV based on your Github Profile",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "bufgix",
+  "license": "MIT",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "chart.js": "^2.9.3",
+    "dotenv": "^8.2.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.2.1",
+    "node-sass": "^4.13.1",
+    "react": "^16.12.0",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.12.0",
+    "uikit": "^3.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
