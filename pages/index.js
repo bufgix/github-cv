@@ -73,8 +73,4 @@ class Index extends React.Component {
   }
 }
 
-Index.getInitialProps = async () => {
-  return { name: "Ömer" };
-};
-
 export default Index;

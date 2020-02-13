@@ -1,7 +1,13 @@
-.uk-link, a {
-    color: #666;
-
-    &:hover{
-        color: #666;
-    }
+.card-hover {
+    background-color: red;
 }
+  
+
+.uk-link, a {
+  color: #666;
+
+  &:hover {
+    color: #666;
+  }
+}
+
