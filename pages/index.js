@@ -13,7 +13,6 @@ class Index extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
   handleChange(event) {
     this.setState({
       username: event.target.value
@@ -29,7 +28,7 @@ class Index extends React.Component {
       <div className="uk-container uk-padding">
         <div className="uk-card uk-card-default">
           <div className="uk-card-header">
-            <h2>Github CV 👋</h2>
+            <h2>Github CV ⭐ 📃</h2>
           </div>
           <div className="uk-card-body">
             <div className="uk-flex" uk-grid="true">
@@ -63,7 +62,15 @@ class Index extends React.Component {
                 style={{ paddingLeft: 0 }}
               ></hr>
               <div className="uk-width-expand">
-                <p>This web app generates CV based on your Github Profile</p>
+                <h4>This web app generates CV based on your Github Profile</h4>
+
+                <p>
+                  If you want to share extra information, create gist that name{" "}
+                  <code>my-github-cv.json</code> like below
+                </p>
+                <div style={{ boxShadow: "0 5px 15px rgba(0,0,0,.08)" }}>
+                  <img src="./carbon.png" alt="example" />
+                </div>
               </div>
             </div>
           </div>
