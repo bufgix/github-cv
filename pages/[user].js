@@ -111,7 +111,7 @@ class CV extends React.Component {
       <div className="uk-container uk-padding">
         <div className="uk-card uk-card-default ">
           <div className="uk-card-header">
-            <div className="uk-flex" uk-grid="true">
+            <div className="uk-child-width-expand@s" uk-grid="true">
               <div className="uk-width-1-6@m">
                 <img
                   src={userJson.avatar_url}
@@ -119,7 +119,7 @@ class CV extends React.Component {
                   uk-img="true"
                 />
               </div>
-              <div className="uk-width-expand">
+              <div className="uk-width-expand@m">
                 <h3 className="uk-card-title uk-margin-remove-bottom">
                   {userJson.name}
                 </h3>
@@ -128,7 +128,7 @@ class CV extends React.Component {
                 </p>
                 {this.renderContacts()}
               </div>
-              <div className="uk-width-auto">{this.renderStats()}</div>
+              <div className="uk-width-auto@m">{this.renderStats()}</div>
             </div>
           </div>
           <div className="uk-card-body">
