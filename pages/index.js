@@ -37,7 +37,7 @@ class Index extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <fieldset className="uk-fieldset">
                     <legend className="uk-legend">
-                      Type your Github username
+                      Type your Github Username
                     </legend>
                     <div className="uk-margin">
                       <input
@@ -59,7 +59,7 @@ class Index extends React.Component {
                 </form>
               </div>
               <hr
-                class="uk-width-auto@s uk-divider-vertical uk-visible@l"
+                className="uk-width-auto@s uk-divider-vertical uk-visible@l"
                 style={{ paddingLeft: 0 }}
               ></hr>
               <div className="uk-width-expand">

@@ -1,8 +1,9 @@
 import React from "react";
+import Router from "next/router";
 import ApiService, { getExtraData } from "../api";
 import { HorizontalBar } from "react-chartjs-2";
 import { RepoCard, Contacts, Stats } from "../components";
-import { calculateLangs, dynamicSort } from "../components/utils";
+import { calculateLangs, dynamicSort, redirect } from "../components/utils";
 import "../styles/cv.scss";
 
 class CV extends React.Component {
@@ -183,7 +184,8 @@ class CV extends React.Component {
   }
 }
 
-CV.getInitialProps = async ({ query }) => {
+CV.getInitialProps = async ctx => {
+  const { query } = ctx;
   const getUserData = async () => {
     const userJson = await ApiService(
       `https://api.github.com/users/${query.user}`
@@ -197,7 +199,8 @@ CV.getInitialProps = async ({ query }) => {
     ApiService(`https://api.github.com/users/${query.user}/repos?per_page=100`),
     getExtraData(query.user)
   ]).catch(err => {
-    console.log(err);
+    console.error(err);
+    redirect({ ctx, location: "/" });
   });
 
   return {
