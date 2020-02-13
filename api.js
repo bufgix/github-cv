@@ -1,5 +1,7 @@
 import fetch from "isomorphic-unfetch";
 
+
+// API utilty function
 const ApiService = async url => {
   const res = await fetch(url, {
     headers: {
@@ -11,6 +13,7 @@ const ApiService = async url => {
   return json;
 };
 
+// This function looking for `username` gist and grab content of `my-github-cv.json` file
 const getExtraData = async username => {
   const gistsJson = await ApiService(
     `https://api.github.com/users/${username}/gists`

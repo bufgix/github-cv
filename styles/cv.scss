@@ -1,13 +1,8 @@
-.card-hover {
-    background-color: red;
-}
-  
-
-.uk-link, a {
+a {
   color: #666;
 
-  &:hover {
+  &:hover,
+  &:visited {
     color: #666;
   }
 }
-

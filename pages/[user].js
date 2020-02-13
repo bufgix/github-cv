@@ -86,6 +86,21 @@ class CV extends React.Component {
     });
   }
 
+  renderExtraData() {
+    const {
+      ghData: { extraData }
+    } = this.props;
+    if (extraData) {
+      return (
+        <article className="uk-article uk-margin-medium-bottom">
+          <h3 className="uk-article-title">About Me</h3> <hr />
+          <p>{extraData.about}</p>
+        </article>
+      );
+    }
+    return null;
+  }
+
   render() {
     const {
       ghData: { userJson }
@@ -116,6 +131,7 @@ class CV extends React.Component {
             </div>
           </div>
           <div className="uk-card-body">
+            {this.renderExtraData()}
             <div className="uk-flex" uk-grid="true">
               <div className="uk-width-1-2@s">
                 <div>
