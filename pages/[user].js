@@ -3,17 +3,24 @@ import Router from "next/router";
 import ApiService, { getExtraData } from "../api";
 import { HorizontalBar } from "react-chartjs-2";
 import { RepoCard, Contacts, Stats } from "../components";
-import { calculateLangs, dynamicSort, redirect } from "../components/utils";
+import {
+  calculateLangs,
+  dynamicSort,
+  redirect,
+  isEmpty
+} from "../components/utils";
 import "../styles/cv.scss";
 
 class CV extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       chartData: calculateLangs(props.ghData.userRepos)
     };
     this.langPerChart = React.createRef();
   }
+
   componentDidMount() {
     import("uikit/dist/js/uikit")
       .then(uikit => {
@@ -81,42 +88,77 @@ class CV extends React.Component {
     const mostRepos = userRepos
       .sort(dynamicSort("-stargazers_count"))
       .slice(0, 3);
-    return mostRepos.map((repo, index) => {
-      return <RepoCard repo={repo} key={index} />;
-    });
+    return (
+      <div>
+        <h3 className="uk-margin-top">Most Repos</h3>
+        <hr />
+        {mostRepos.map((repo, index) => (
+          <RepoCard repo={repo} key={index} />
+        ))}
+      </div>
+    );
   }
 
   renderWarnings() {
     const {
-      ghData: { extraData }
+      ghData: {
+        extraData: { warns }
+      }
     } = this.props;
-    if (!extraData) {
-      return (
-        <div className="uk-alert-warning" uk-alert="true">
-          <a className="uk-alert-close" uk-close="true"></a>
-          <p>
-            Seems like you are not created <b>my-gihub-cv.json</b> file in your
-            gists. <a href="#">More</a>
-          </p>
-        </div>
-      );
+    if (!(typeof warns === "undefined")) {
+      return warns.map((warn, index) => {
+        return (
+          <div className="uk-alert-warning" uk-alert="true" key={index}>
+            <a className="uk-alert-close" uk-close="true"></a>
+            <p>{warn}</p>
+          </div>
+        );
+      });
     }
     return null;
   }
 
-  renderExtraData() {
+  renderExtraData(section) {
     const {
-      ghData: { extraData }
+      ghData: {
+        extraData: { about, repos, warns },
+        userRepos
+      }
     } = this.props;
-    if (extraData) {
-      return (
-        <article className="uk-article uk-margin-medium-bottom">
-          <h3 className="uk-article-title">About Me</h3> <hr />
-          <p>{extraData.about}</p>
-        </article>
-      );
+    if (typeof warns === "undefined") {
+      switch (section) {
+        case "about":
+          return about ? (
+            <article className="uk-article uk-margin-medium-bottom">
+              <h3 className="uk-article-title">About Me</h3> <hr />
+              <p>{about}</p>
+            </article>
+          ) : null;
+
+        case "repos":
+          console.log(
+            userRepos.filter(repo => {
+              return repos.includes(repo.name);
+            })
+          );
+          return repos ? (
+            <div>
+              <h3>Picked Repos</h3>
+              <hr />
+              {userRepos
+                .filter(repo => {
+                  return repos.includes(repo.name);
+                })
+                .sort(dynamicSort("-stargazers_count"))
+                .map((repo, index) => (
+                  <RepoCard repo={repo} key={index} />
+                ))}
+            </div>
+          ) : null;
+        default:
+          return null;
+      }
     }
-    return null;
   }
 
   render() {
@@ -149,7 +191,8 @@ class CV extends React.Component {
             </div>
           </div>
           <div className="uk-card-body">
-            {this.renderExtraData()}
+            {this.renderExtraData("about")}
+            {this.renderExtraData("repos")}
             <div className="uk-flex" uk-grid="true">
               <div className="uk-width-1-2@s">
                 <div>
@@ -188,11 +231,7 @@ class CV extends React.Component {
                 </div>
                 {this.renderOrgs()}
               </div>
-              <div className="uk-width-1-2@s">
-                <h3 className="uk-margin-remove-top">Most Repos</h3>
-                <hr />
-                {this.renderMostRepos()}
-              </div>
+              <div className="uk-width-1-2@s">{this.renderMostRepos()}</div>
             </div>
           </div>
           {this.renderWarnings()}
@@ -212,19 +251,21 @@ CV.getInitialProps = async ctx => {
 
     return { userJson, orgsJson };
   };
-  const [{ userJson, orgsJson }, userRepos, extraData] = await Promise.all([
-    getUserData(),
-    ApiService(`https://api.github.com/users/${query.user}/repos?per_page=100`),
-    getExtraData(query.user)
-  ]).catch(err => {
-    console.error(err);
-    redirect({ ctx, location: "/" });
-  });
-
-  return {
-    title: `${query.user}'s CV`,
-    ghData: { userJson, userRepos, orgsJson, extraData }
-  };
+  try {
+    const [{ userJson, orgsJson }, userRepos, extraData] = await Promise.all([
+      getUserData(),
+      ApiService(
+        `https://api.github.com/users/${query.user}/repos?per_page=100`
+      ),
+      getExtraData(query.user)
+    ]);
+    return {
+      title: `${query.user}'s CV`,
+      ghData: { userJson, userRepos, orgsJson, extraData }
+    };
+  } catch (err) {
+    redirect({ ctx, location: "/?error=true" });
+  }
 };
 
 export default CV;

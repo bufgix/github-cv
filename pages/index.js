@@ -11,6 +11,7 @@ class Index extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleChange(event) {
@@ -81,7 +82,7 @@ class Index extends React.Component {
 }
 
 Index.getInitialProps = () => {
-  return {title: "Github CV"}
-}
+  return { title: "Github CV" };
+};
 
 export default Index;

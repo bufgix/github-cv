@@ -1,16 +1,19 @@
 import fetch from "isomorphic-unfetch";
 
-
 // API utilty function
 const ApiService = async url => {
-  const res = await fetch(url, {
-    headers: {
-      Authorization: `token ${process.env.GITHUB_TOKEN}`
-    }
-  });
-  const json = await res.json();
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `token ${process.env.GITHUB_TOKEN}`
+      }
+    });
+    const json = await res.json();
 
-  return json;
+    return Promise.resolve(json);
+  } catch (error) {
+    return Promise.reject({ error });
+  }
 };
 
 // This function looking for `username` gist and grab content of `my-github-cv.json` file
@@ -23,9 +26,15 @@ const getExtraData = async username => {
   )[0];
   if (!(typeof cv === "undefined")) {
     const cvContent = await ApiService(cv.url);
-    return JSON.parse(cvContent.files["my-github-cv.json"].content);
+    return Promise.resolve(
+      JSON.parse(cvContent.files["my-github-cv.json"].content)
+    );
   } else {
-    return null;
+    return Promise.resolve({
+      warns: [
+        "Seems like you are not created my-github-cv.json file in your gist."
+      ]
+    });
   }
 };
 

@@ -88,6 +88,10 @@ const calculateLangs = userRepos => {
   return stats;
 };
 
+const isEmpty = obj => {
+  return Object.entries(obj).length === 0 && obj.constructor === Object;
+};
+
 const redirect = params => {
   const { ctx, location, status = 302 } = params;
 
@@ -102,4 +106,4 @@ const redirect = params => {
     return;
   }
 };
-export { getLangColorsMap, dynamicSort, calculateLangs, redirect };
+export { getLangColorsMap, dynamicSort, calculateLangs, redirect, isEmpty };
