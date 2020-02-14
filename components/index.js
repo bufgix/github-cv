@@ -6,7 +6,7 @@ function Contacts({ userJson }) {
       <ul className="uk-list">
         {userJson.blog ? (
           <li className="uk-align-center uk-margin-remove-bottom">
-            <span uk-icon="home"></span> Blog:{" "}
+            <span uk-icon="home"></span> Website:{" "}
             <a href={userJson.blog}>
               <b>{userJson.blog}</b>
             </a>

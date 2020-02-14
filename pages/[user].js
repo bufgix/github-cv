@@ -87,6 +87,24 @@ class CV extends React.Component {
     });
   }
 
+  renderWarnings() {
+    const {
+      ghData: { extraData }
+    } = this.props;
+    if (!extraData) {
+      return (
+        <div className="uk-alert-warning" uk-alert="true">
+          <a className="uk-alert-close" uk-close="true"></a>
+          <p>
+            Seems like you are not created <b>my-gihub-cv.json</b> in your
+            gists. <a href="#">More</a>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  }
+
   renderExtraData() {
     const {
       ghData: { extraData }
@@ -178,6 +196,7 @@ class CV extends React.Component {
               </div>
             </div>
           </div>
+          {this.renderWarnings()}
         </div>
       </div>
     );
@@ -204,6 +223,7 @@ CV.getInitialProps = async ctx => {
   });
 
   return {
+    title: `${query.user}'s CV`,
     ghData: { userJson, userRepos, orgsJson, extraData }
   };
 };

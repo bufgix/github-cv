@@ -80,4 +80,8 @@ class Index extends React.Component {
   }
 }
 
+Index.getInitialProps = () => {
+  return {title: "Github CV"}
+}
+
 export default Index;
