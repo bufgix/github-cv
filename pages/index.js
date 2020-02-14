@@ -11,7 +11,16 @@ class Index extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+  }
+  componentDidMount() {
+    import("uikit/dist/js/uikit")
+      .then(uikit => {
+        this.uikit = uikit;
+        import("uikit/dist/js/uikit-icons").then(icon => {
+          this.uikit.use(icon);
+        });
+      })
+      .catch(error => console.error(error));
   }
 
   handleChange(event) {
@@ -57,6 +66,17 @@ class Index extends React.Component {
                     </div>
                   </fieldset>
                 </form>
+                <div className="uk-flex uk-flex-center uk-margin-top">
+                  <a href="https://github.com/bufgix/github-cv" target="_blank">
+                    <span uk-icon="icon: github; ratio: 2"></span>
+                  </a>
+                  <a href="https://twitter.com/bufgix" target="_blank">
+                    <span
+                      uk-icon="icon: twitter; ratio: 2"
+                      className="uk-margin-small-left"
+                    ></span>
+                  </a>
+                </div>
               </div>
               <hr
                 className="uk-width-auto@s uk-divider-vertical uk-visible@l"

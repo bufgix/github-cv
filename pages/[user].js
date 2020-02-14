@@ -136,11 +136,6 @@ class CV extends React.Component {
           ) : null;
 
         case "repos":
-          console.log(
-            userRepos.filter(repo => {
-              return repos.includes(repo.name);
-            })
-          );
           return repos ? (
             <div>
               <h3>Picked Repos</h3>
