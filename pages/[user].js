@@ -47,28 +47,27 @@ class CV extends React.Component {
         <div>
           <h3>Organizations</h3>
           <hr />
-          <ul className="uk-list">
-            <div className="uk-flex uk-flex-wrap uk-flex-left">
-              {orgsJson.map((org, index) => (
-                <div
-                  className="uk-card uk-card-default uk-margin-small-left uk-margin-small-right uk-margin-small-bottom uk-card-small"
-                  key={index}
-                >
-                  <div className="uk-card-header">
-                    <img
-                      className="uk-margin-right"
-                      src={org.avatar_url}
-                      alt="org_image"
-                      height="50"
-                      width="50"
-                      uk-img={true}
-                    />
-                    <span>{org.login}</span>
-                  </div>
+
+          <div className="uk-flex uk-flex-wrap uk-flex-left">
+            {orgsJson.map((org, index) => (
+              <div
+                className="uk-card uk-card-default uk-margin-small-left uk-margin-small-right uk-margin-small-bottom uk-card-small"
+                key={index}
+              >
+                <div className="uk-card-header">
+                  <img
+                    className="uk-margin-right"
+                    src={org.avatar_url}
+                    alt="org_image"
+                    height="50"
+                    width="50"
+                    uk-img={true}
+                  />
+                  <span>{org.login}</span>
                 </div>
-              ))}
-            </div>
-          </ul>
+              </div>
+            ))}
+          </div>
         </div>
       );
     }
@@ -96,7 +95,7 @@ class CV extends React.Component {
         <div className="uk-alert-warning" uk-alert="true">
           <a className="uk-alert-close" uk-close="true"></a>
           <p>
-            Seems like you are not created <b>my-gihub-cv.json</b> in your
+            Seems like you are not created <b>my-gihub-cv.json</b> file in your
             gists. <a href="#">More</a>
           </p>
         </div>
