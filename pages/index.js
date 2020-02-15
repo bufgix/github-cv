@@ -9,7 +9,7 @@ class Index extends React.Component {
     this.state = {
       username: ""
     };
-    Analytics.logPageView("/")
+    Analytics.logPageView("/");
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -112,6 +112,13 @@ class Index extends React.Component {
                 <div style={{ boxShadow: "0 5px 15px rgba(0,0,0,.08)" }}>
                   <img src="./carbon.png" alt="example" />
                 </div>
+
+                <a
+                  href="/about/privacy"
+                  className="uk-align-right uk-margin-small-top"
+                >
+                  Privacy
+                </a>
               </div>
             </div>
           </div>
