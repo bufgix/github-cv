@@ -13,7 +13,15 @@
 
 ### 🏠 [DEMO](https://github-cv.herokuapp.com)
 
-<img alt="frame" src="https://user-images.githubusercontent.com/22038798/74546265-61398800-4f5b-11ea-9f72-aec95356dba0.png" style="box-shadow: 0 5px 15px rgba(0,0,0,.08)"/>
+|   	|   	|
+|---	|---	|
+ ![](https://user-images.githubusercontent.com/22038798/74594363-86ef8b80-5046-11ea-9da7-5a670510a1b1.png) |  ![](https://user-images.githubusercontent.com/22038798/74594117-d08aa700-5043-11ea-8407-de19db66c8bd.png) 
+
+
+
+
+
+
 
 ## Usage
 
