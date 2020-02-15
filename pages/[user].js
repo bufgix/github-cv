@@ -256,7 +256,7 @@ CV.getInitialProps = async ctx => {
     ]);
     return {
       title: `${query.user}'s CV`,
-      userName: query.use,
+      userName: query.user,
       ghData: { userJson, userRepos, orgsJson, extraData }
     };
   } catch (err) {
