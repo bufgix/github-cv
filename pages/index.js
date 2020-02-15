@@ -1,6 +1,7 @@
 import React from "react";
-import Router from "next/router";
-import css from "../styles/index.scss";
+import Router, { withRouter } from "next/router";
+import { Analytics } from "../components";
+import "../styles/index.scss";
 
 class Index extends React.Component {
   constructor(props) {
@@ -8,11 +9,12 @@ class Index extends React.Component {
     this.state = {
       username: ""
     };
-
+    Analytics.logPageView("/")
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
+
+  loadUiKit() {
     import("uikit/dist/js/uikit")
       .then(uikit => {
         this.uikit = uikit;
@@ -21,6 +23,11 @@ class Index extends React.Component {
         });
       })
       .catch(error => console.error(error));
+  }
+
+  componentDidMount() {
+    this.loadUiKit();
+    window.history.replaceState(null, null, window.location.pathname);
   }
 
   handleChange(event) {
@@ -33,6 +40,22 @@ class Index extends React.Component {
     event.preventDefault(); // for now
   }
 
+  renderWarnings() {
+    const {
+      router: { query }
+    } = this.props;
+    if (query.notfound) {
+      return (
+        <div className="uk-alert-danger" uk-alert="true">
+          <a className="uk-alert-close" uk-close="true"></a>
+          <p>
+            User not found <b>{query.notfound}</b>
+          </p>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="uk-container uk-padding">
@@ -41,8 +64,8 @@ class Index extends React.Component {
             <h2>Github CV ⭐ 📃</h2>
           </div>
           <div className="uk-card-body">
-            <div className="uk-flex" uk-grid="true">
-              <div className="uk-width-1-2@m uk-flex-first uk-margin-medium-right">
+            <div className="uk-flex uk-grid-divider" uk-grid="true">
+              <div className="uk-width-1-2@m uk-flex-first uk-margin-right@m">
                 <form onSubmit={this.handleSubmit}>
                   <fieldset className="uk-fieldset">
                     <legend className="uk-legend">
@@ -58,7 +81,7 @@ class Index extends React.Component {
                       />
                       <button
                         type="submit"
-                        className="uk-button uk-button-default uk-margin-top"
+                        className="uk-button uk-button-default uk-margin-top uk-width-1-1@s uk-width-1-3@m"
                         onClick={() => Router.push(`/${this.state.username}`)}
                       >
                         Generate
@@ -66,6 +89,7 @@ class Index extends React.Component {
                     </div>
                   </fieldset>
                 </form>
+                {this.renderWarnings()}
                 <div className="uk-flex uk-flex-center uk-margin-top">
                   <a href="https://github.com/bufgix/github-cv" target="_blank">
                     <span uk-icon="icon: github; ratio: 2"></span>
@@ -78,10 +102,6 @@ class Index extends React.Component {
                   </a>
                 </div>
               </div>
-              <hr
-                className="uk-width-auto@s uk-divider-vertical uk-visible@l"
-                style={{ paddingLeft: 0 }}
-              ></hr>
               <div className="uk-width-expand">
                 <h4>This web app generates CV based on your Github Profile</h4>
 
@@ -105,4 +125,4 @@ Index.getInitialProps = () => {
   return { title: "Github CV" };
 };
 
-export default Index;
+export default withRouter(Index);

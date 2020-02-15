@@ -1,4 +1,5 @@
 import RepoCard from "./RepoCard";
+import ReactGA from "react-ga";
 
 function Contacts({ userJson }) {
   return (
@@ -55,4 +56,15 @@ function Stats({ userJson }) {
   );
 }
 
-export { RepoCard, Contacts, Stats,  };
+class AnalyticsInternal {
+  constructor() {
+    ReactGA.initialize("UA-154334049-3");
+  }
+
+  logPageView(url) {
+    ReactGA.pageview(url);
+  }
+}
+const Analytics = new AnalyticsInternal();
+
+export { RepoCard, Contacts, Stats, Analytics };

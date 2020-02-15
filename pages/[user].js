@@ -2,12 +2,11 @@ import React from "react";
 import Router from "next/router";
 import ApiService, { getExtraData } from "../api";
 import { HorizontalBar } from "react-chartjs-2";
-import { RepoCard, Contacts, Stats } from "../components";
+import { RepoCard, Contacts, Stats, Analytics } from "../components";
 import {
   calculateLangs,
   dynamicSort,
   redirect,
-  isEmpty
 } from "../components/utils";
 import "../styles/cv.scss";
 
@@ -18,6 +17,7 @@ class CV extends React.Component {
     this.state = {
       chartData: calculateLangs(props.ghData.userRepos)
     };
+    Analytics.logPageView(`/${this.props.userName}`);
     this.langPerChart = React.createRef();
   }
 
@@ -256,10 +256,11 @@ CV.getInitialProps = async ctx => {
     ]);
     return {
       title: `${query.user}'s CV`,
+      userName: query.use,
       ghData: { userJson, userRepos, orgsJson, extraData }
     };
   } catch (err) {
-    redirect({ ctx, location: "/?error=true" });
+    redirect({ ctx, location: `/?notfound=${query.user}` });
   }
 };
 
