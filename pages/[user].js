@@ -260,7 +260,6 @@ CV.getInitialProps = async ctx => {
       ghData: { userJson, userRepos, orgsJson, extraData }
     };
   } catch (err) {
-    console.log(err);
     redirect({ ctx, location: `/?notfound=${query.user}` });
   }
 };
