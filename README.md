@@ -11,7 +11,7 @@
 
 > The tool that generates CV based on your Github Profile
 
-### 🏠 [DEMO](https://github-cv.herokuapp.com)
+### 🏠 [DEMO](https://github-cv.now.sh/)
 
 |   	|   	|
 |---	|---	|
