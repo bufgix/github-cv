@@ -90,7 +90,7 @@ class CV extends React.Component {
       .slice(0, 3);
     return (
       <div>
-        <h3 className="uk-margin-top">Most Repos</h3>
+        <h3 className="uk-margin-top">Most Starred Repos</h3>
         <hr />
         {mostRepos.map((repo, index) => (
           <RepoCard repo={repo} key={index} />
@@ -260,6 +260,7 @@ CV.getInitialProps = async ctx => {
       ghData: { userJson, userRepos, orgsJson, extraData }
     };
   } catch (err) {
+    console.log(err);
     redirect({ ctx, location: `/?notfound=${query.user}` });
   }
 };
