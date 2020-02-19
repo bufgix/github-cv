@@ -7,14 +7,19 @@ a {
   }
 }
 
+.experience-date {
+  background-color: "#9251ac";
+  color: "#f6a4ec" !important;
+}
+
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
-  background-color: #F6F8FA;
+  background-color: #f6f8fa;
 }
 ::-webkit-scrollbar {
   width: 5px;
-  background-color: #F6F8FA;
+  background-color: #f6f8fa;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;

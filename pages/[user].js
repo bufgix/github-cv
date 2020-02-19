@@ -3,11 +3,7 @@ import Router from "next/router";
 import ApiService, { getExtraData } from "../api";
 import { HorizontalBar } from "react-chartjs-2";
 import { RepoCard, Contacts, Stats, Analytics } from "../components";
-import {
-  calculateLangs,
-  dynamicSort,
-  redirect,
-} from "../components/utils";
+import { calculateLangs, dynamicSort, redirect } from "../components/utils";
 import "../styles/cv.scss";
 
 class CV extends React.Component {
@@ -129,15 +125,17 @@ class CV extends React.Component {
       switch (section) {
         case "about":
           return about ? (
-            <article className="uk-article uk-margin-medium-bottom">
-              <h3 className="uk-article-title">About Me</h3> <hr />
-              <p>{about}</p>
-            </article>
+            <div class="uk-width-expand@m">
+              <article className="uk-article uk-margin-medium-bottom">
+                <h3 className="uk-article-title">About Me</h3> <hr />
+                <p className="uk-text-lead uk-text-lighter ">{about}</p>
+              </article>
+            </div>
           ) : null;
 
         case "repos":
           return repos ? (
-            <div>
+            <div class="uk-width-expand@m">
               <h3>Picked Repos</h3>
               <hr />
               {userRepos
@@ -158,7 +156,10 @@ class CV extends React.Component {
 
   render() {
     const {
-      ghData: { userJson }
+      ghData: {
+        userJson,
+        extraData: { warns }
+      }
     } = this.props;
     const { chartData } = this.state;
     return (
@@ -186,9 +187,23 @@ class CV extends React.Component {
             </div>
           </div>
           <div className="uk-card-body">
-            {this.renderExtraData("about")}
-            {this.renderExtraData("repos")}
-            <div className="uk-flex" uk-grid="true">
+            {typeof warns === "undefined" ? (
+              <div uk-grid="true">
+                {this.renderExtraData("about")}
+                {this.renderExtraData("repos")}
+              </div>
+            ) : null}
+            <div className="uk-width-expand">
+              <h3>Education</h3>
+              <hr />
+              <dl class="uk-description-list uk-description-list-divider">
+                <dt>Part-Time Student Worker </dt>
+                <dd>Sakarya University</dd>
+                <dt>Junior Software Developer </dt>
+                <dd>Ekol Logistics</dd>
+              </dl>
+            </div>
+            <div uk-grid="true">
               <div className="uk-width-1-2@s">
                 <div>
                   <h3 className="uk-margin-remove-top">Languages</h3>
