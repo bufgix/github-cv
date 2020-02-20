@@ -56,6 +56,15 @@ function Stats({ userJson }) {
   );
 }
 
+function Warning({ message }) {
+  return (
+    <div className="uk-alert-danger" uk-alert="true">
+      <a className="uk-alert-close" uk-close="true"></a>
+      <p>{message}</p>
+    </div>
+  );
+}
+
 class AnalyticsInternal {
   constructor() {
     ReactGA.initialize("UA-154334049-3");
@@ -67,4 +76,4 @@ class AnalyticsInternal {
 }
 const Analytics = new AnalyticsInternal();
 
-export { RepoCard, Contacts, Stats, Analytics };
+export { RepoCard, Contacts, Stats, Warning, Analytics };

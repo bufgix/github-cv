@@ -1,6 +1,6 @@
 import React from "react";
 import Router, { withRouter } from "next/router";
-import { Analytics } from "../components";
+import { Analytics, Warning } from "../components";
 import "../styles/index.scss";
 
 class Index extends React.Component {
@@ -45,13 +45,10 @@ class Index extends React.Component {
       router: { query }
     } = this.props;
     if (query.notfound) {
+      return <Warning message={`User not found ${query.notfound}`} />;
+    } else if (query.jsonError) {
       return (
-        <div className="uk-alert-danger" uk-alert="true">
-          <a className="uk-alert-close" uk-close="true"></a>
-          <p>
-            User not found <b>{query.notfound}</b>
-          </p>
-        </div>
+        <Warning message="my-github-cv.json file is not correct. Reason: Json Syntax Error" />
       );
     }
   }

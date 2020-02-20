@@ -117,7 +117,7 @@ class CV extends React.Component {
   renderExtraData(section) {
     const {
       ghData: {
-        extraData: { about, repos, warns },
+        extraData: { about, repos, experience, warns },
         userRepos
       }
     } = this.props;
@@ -125,7 +125,7 @@ class CV extends React.Component {
       switch (section) {
         case "about":
           return about ? (
-            <div class="uk-width-expand@m">
+            <div className="uk-width-1-1@m">
               <article className="uk-article uk-margin-medium-bottom">
                 <h3 className="uk-article-title">About Me</h3> <hr />
                 <p className="uk-text-lead uk-text-lighter ">{about}</p>
@@ -135,7 +135,7 @@ class CV extends React.Component {
 
         case "repos":
           return repos ? (
-            <div class="uk-width-expand@m">
+            <div className="uk-width-expand@m">
               <h3>Picked Repos</h3>
               <hr />
               {userRepos
@@ -146,6 +146,34 @@ class CV extends React.Component {
                 .map((repo, index) => (
                   <RepoCard repo={repo} key={index} />
                 ))}
+            </div>
+          ) : null;
+        case "experience":
+          return experience ? (
+            <div className="uk-width-expand">
+              <h3>Experience / Education</h3>
+              <hr />
+              <dl className="uk-description-list uk-description-list-divider">
+                {experience.map((exp, index) => (
+                  <React.Fragment key={index}>
+                    {exp.link ? (
+                      <dt key={index}>
+                        <a className="uk-text-bold" href={exp.link}>
+                          {exp.name}
+                        </a>
+                      </dt>
+                    ) : (
+                      <dt>
+                        <span className="uk-text-bold">{exp.name}</span>
+                      </dt>
+                    )}
+                    <dd>{exp.detail}</dd>
+                    <dd>
+                      {exp.start_date} - {exp.end_date}
+                    </dd>
+                  </React.Fragment>
+                ))}
+              </dl>
             </div>
           ) : null;
         default:
@@ -191,18 +219,10 @@ class CV extends React.Component {
               <div uk-grid="true">
                 {this.renderExtraData("about")}
                 {this.renderExtraData("repos")}
+                {this.renderExtraData("experience")}
               </div>
             ) : null}
-            <div className="uk-width-expand">
-              <h3>Education</h3>
-              <hr />
-              <dl class="uk-description-list uk-description-list-divider">
-                <dt>Part-Time Student Worker </dt>
-                <dd>Sakarya University</dd>
-                <dt>Junior Software Developer </dt>
-                <dd>Ekol Logistics</dd>
-              </dl>
-            </div>
+
             <div uk-grid="true">
               <div className="uk-width-1-2@s">
                 <div>
@@ -275,6 +295,9 @@ CV.getInitialProps = async ctx => {
       ghData: { userJson, userRepos, orgsJson, extraData }
     };
   } catch (err) {
+    if (err instanceof SyntaxError) {
+      redirect({ ctx, location: `/?jsonError=${query.user}` });
+    }
     redirect({ ctx, location: `/?notfound=${query.user}` });
   }
 };
