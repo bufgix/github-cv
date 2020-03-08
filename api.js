@@ -32,7 +32,7 @@ const getExtraData = async username => {
   } else {
     return Promise.resolve({
       warns: [
-        "Seems like you are not created my-github-cv.json file in your gist."
+        "my-github-cv.json not found in your gists"
       ]
     });
   }

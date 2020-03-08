@@ -1,11 +1,11 @@
-a {
-  color: #666;
-
+.uk-card-body:hover, .uk-card-body:visited {
+  color: red !important;
   &:hover,
   &:visited {
-    color: #666;
+    text-decoration: none !important;
   }
 }
+
 
 .experience-date {
   background-color: "#9251ac";

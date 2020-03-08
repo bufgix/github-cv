@@ -5,7 +5,7 @@ export default function({ repo }) {
   const [hover, setHover] = useState(false);
   const toggleHover = () => setHover(!hover);
   return (
-    <a href={repo.html_url} target="_blank">
+    <a className="card-link" href={repo.html_url} target="_blank">
       <div
         className={`uk-card uk-card-default uk-margin-small card-hover ${
           hover ? "uk-box-shadow-xlarge" : ""
@@ -26,14 +26,16 @@ export default function({ repo }) {
             </div>
           </div>
           {repo.language ? (
-            <span
-              className="uk-badge"
-              style={{
-                backgroundColor: getLangColorsMap(1)[repo.language]
-              }}
-            >
-              {repo.language}
-            </span>
+            <React.Fragment>
+              <span
+                className="uk-badge"
+                style={{
+                  backgroundColor: getLangColorsMap(1)[repo.language]
+                }}
+              >
+                {repo.language}
+              </span>
+            </React.Fragment>
           ) : null}
         </div>
       </div>
