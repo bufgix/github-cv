@@ -11,7 +11,7 @@ class CV extends React.Component {
     super(props);
 
     this.state = {
-      chartData: calculateLangs(props.ghData.userRepos)
+      chartData: calculateLangs(props.ghData.userRepos),
     };
     Analytics.logPageView(`/${this.props.userName}`);
     this.langPerChart = React.createRef();
@@ -19,31 +19,31 @@ class CV extends React.Component {
 
   componentDidMount() {
     import("uikit/dist/js/uikit")
-      .then(uikit => {
+      .then((uikit) => {
         this.uikit = uikit;
-        import("uikit/dist/js/uikit-icons").then(icon => {
+        import("uikit/dist/js/uikit-icons").then((icon) => {
           this.uikit.use(icon);
         });
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   }
 
   renderContacts() {
     const {
-      ghData: { userJson }
+      ghData: { userJson },
     } = this.props;
     return <Contacts userJson={userJson} />;
   }
   renderStats() {
     const {
-      ghData: { userJson }
+      ghData: { userJson },
     } = this.props;
     return <Stats userJson={userJson} />;
   }
 
   renderOrgs() {
     const {
-      ghData: { orgsJson }
+      ghData: { orgsJson },
     } = this.props;
     if (orgsJson.length) {
       return (
@@ -79,7 +79,7 @@ class CV extends React.Component {
 
   renderMostRepos() {
     const {
-      ghData: { userRepos }
+      ghData: { userRepos },
     } = this.props;
     const mostRepos = userRepos
       .sort(dynamicSort("-stargazers_count"))
@@ -98,38 +98,32 @@ class CV extends React.Component {
   renderWarnings() {
     const {
       ghData: {
-        extraData: { warns }
-      }
+        extraData: { warns },
+      },
     } = this.props;
     if (!(typeof warns === "undefined")) {
       return warns.map((warn, index) => {
         return (
-            <div className="uk-alert-warning hidden-print" uk-alert="true" key={index}>
-              <a className="uk-alert-close" uk-close="true"></a>
-              <p>{warn}</p>
-            </div>
+          <div
+            className="uk-alert-warning hidden-print"
+            uk-alert="true"
+            key={index}
+          >
+            <a className="uk-alert-close" uk-close="true"></a>
+            <p>{warn}</p>
+          </div>
         );
       });
     }
     return null;
   }
 
-  renderPrintButton() {
-    return (
-        <button type="submit" className="uk-button hidden-print uk-button-primary uk-margin-top uk-width-1-1@s uk-width-1-3@m" onClick={this.print}>Print CV</button>
-    );
-  }
-
-  print() {
-    window.print();
-  }
-
   renderExtraData(section) {
     const {
       ghData: {
         extraData: { about, repos, experience, warns },
-        userRepos
-      }
+        userRepos,
+      },
     } = this.props;
     if (typeof warns === "undefined") {
       switch (section) {
@@ -149,7 +143,7 @@ class CV extends React.Component {
               <h3>Picked Repos</h3>
               <hr />
               {userRepos
-                .filter(repo => {
+                .filter((repo) => {
                   return repos.includes(repo.name);
                 })
                 .sort(dynamicSort("-stargazers_count"))
@@ -196,8 +190,8 @@ class CV extends React.Component {
     const {
       ghData: {
         userJson,
-        extraData: { warns }
-      }
+        extraData: { warns },
+      },
     } = this.props;
     const { chartData } = this.state;
     return (
@@ -242,16 +236,16 @@ class CV extends React.Component {
                   <div style={{ height: 300 }}>
                     <HorizontalBar
                       data={{
-                        labels: chartData.map(x => x.name),
+                        labels: chartData.map((x) => x.name),
                         datasets: [
                           {
                             label: "Languages (%)",
-                            data: chartData.map(x => x.percentage.toFixed(2)),
-                            backgroundColor: chartData.map(x => x.color),
-                            borderColor: chartData.map(x => x.borderColor),
-                            borderWidth: 2
-                          }
-                        ]
+                            data: chartData.map((x) => x.percentage.toFixed(2)),
+                            backgroundColor: chartData.map((x) => x.color),
+                            borderColor: chartData.map((x) => x.borderColor),
+                            borderWidth: 2,
+                          },
+                        ],
                       }}
                       options={{
                         scales: {
@@ -259,13 +253,13 @@ class CV extends React.Component {
                             {
                               ticks: {
                                 suggestedMax: 30,
-                                suggestedMin: 0
-                              }
-                            }
-                          ]
+                                suggestedMin: 0,
+                              },
+                            },
+                          ],
                         },
                         responsive: true,
-                        maintainAspectRatio: false
+                        maintainAspectRatio: false,
                       }}
                     />
                   </div>
@@ -277,13 +271,12 @@ class CV extends React.Component {
           </div>
           {this.renderWarnings()}
         </div>
-        {this.renderPrintButton()}
       </div>
     );
   }
 }
 
-CV.getInitialProps = async ctx => {
+CV.getInitialProps = async (ctx) => {
   const { query } = ctx;
   const getUserData = async () => {
     const userJson = await ApiService(
@@ -299,12 +292,12 @@ CV.getInitialProps = async ctx => {
       ApiService(
         `https://api.github.com/users/${query.user}/repos?per_page=100`
       ),
-      getExtraData(query.user)
+      getExtraData(query.user),
     ]);
     return {
       title: `${query.user}'s CV`,
       userName: query.user,
-      ghData: { userJson, userRepos, orgsJson, extraData }
+      ghData: { userJson, userRepos, orgsJson, extraData },
     };
   } catch (err) {
     if (err instanceof SyntaxError) {

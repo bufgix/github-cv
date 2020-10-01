@@ -38,6 +38,22 @@ function Contacts({ userJson }) {
 }
 
 function Stats({ userJson }) {
+  const renderPrintButton = () => {
+    return (
+      <button
+        type="submit"
+        className="uk-button hidden-print uk-button-primary uk-margin-top"
+        onClick={print}
+      >
+        Print CV
+      </button>
+    );
+  };
+
+  const print = () => {
+    window.print();
+  };
+
   return (
     <ul className="uk-list">
       <li className="uk-align-center uk-margin-remove-bottom">
@@ -51,6 +67,9 @@ function Stats({ userJson }) {
         <a href={`${userJson.html_url}?tab=followers`}>
           <b>{userJson.followers}</b>
         </a>
+      </li>
+      <li className="uk-align-center uk-margin-remove-bottom">
+        {renderPrintButton()}
       </li>
     </ul>
   );
