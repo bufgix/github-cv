@@ -104,14 +104,24 @@ class CV extends React.Component {
     if (!(typeof warns === "undefined")) {
       return warns.map((warn, index) => {
         return (
-          <div className="uk-alert-warning" uk-alert="true" key={index}>
-            <a className="uk-alert-close" uk-close="true"></a>
-            <p>{warn}</p>
-          </div>
+            <div className="uk-alert-warning hidden-print" uk-alert="true" key={index}>
+              <a className="uk-alert-close" uk-close="true"></a>
+              <p>{warn}</p>
+            </div>
         );
       });
     }
     return null;
+  }
+
+  renderPrintButton() {
+    return (
+        <button type="submit" className="uk-button hidden-print uk-button-primary uk-margin-top uk-width-1-1@s uk-width-1-3@m" onClick={this.print}>Print CV</button>
+    );
+  }
+
+  print() {
+    window.print();
   }
 
   renderExtraData(section) {
@@ -200,6 +210,7 @@ class CV extends React.Component {
                   src={userJson.avatar_url}
                   alt="profile-img"
                   uk-img="true"
+                  className="avatar"
                 />
               </div>
               <div className="uk-width-expand@m">
@@ -266,6 +277,7 @@ class CV extends React.Component {
           </div>
           {this.renderWarnings()}
         </div>
+        {this.renderPrintButton()}
       </div>
     );
   }

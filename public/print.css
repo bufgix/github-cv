@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden-print {
+    display: none !important;
+}
+
+.avatar {
+    height: 30mm !important;
+    margin-bottom: 3mm !important;
+}

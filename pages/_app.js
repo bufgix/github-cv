@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React from "react";
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -25,6 +26,7 @@ export default function MyApp({ Component, pageProps }) {
           integrity="sha256-pXt2XY/xp6QmXUIQYxlCfOTWCV8UBJmpJtHn1NheTHU="
           crossOrigin="anonymous"
         ></script>
+        <link rel="stylesheet" type="text/css" href="/print.css" media="print"/>
       </Head>
       <Component {...pageProps} />
     </div>
