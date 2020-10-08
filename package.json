@@ -15,7 +15,7 @@
     "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^9.3.2",
+    "next": "^9.5.4",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-chartjs-2": "^2.9.0",
